@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/ic_baseline_arrow_circle_up_24.xml" value="0.1255" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.326" />
         <entry key="app/src/main/res/layout/activity_about.xml" value="0.17451874366767983" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.29936594202898553" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.1" />

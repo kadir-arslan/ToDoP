@@ -8,9 +8,11 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -31,11 +33,19 @@ public class MainActivity extends AppCompatActivity {
     private List<Task> taskList = new ArrayList<Task>();
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
+    BottomSheetFragment bottomSheetFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DatabaseHandler db = new DatabaseHandler();
         setContentView(R.layout.activity_main);
+
+        bottomSheetFragment = new BottomSheetFragment();
+        ConstraintLayout constraintLayout = findViewById(R.id.bottomSheet);
+        BottomSheetBehavior<ConstraintLayout> bottomSheetBehavior = BottomSheetBehavior.from(constraintLayout);
+        bottomSheetBehavior.setPeekHeight(BottomSheetBehavior.STATE_HIDDEN);
+
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -71,16 +81,18 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-
-                Task task = new Task();
-                java.util.Date date = new java.util.Date();
-                task.setModel(new TaskModel("test", Priority.HIGH, date, date, false));
-                db.add(task);
+                //Task task = new Task();
+                //java.util.Date date = new java.util.Date();
+                //task.setModel(new TaskModel("test", Priority.HIGH, date, date, false));
+                //db.add(task);
                 //db.remove(taskList.get(0));
+                showBottomSheetDialog();
             }
         });
+    }
+
+    private void showBottomSheetDialog() {
+        bottomSheetFragment.show(getSupportFragmentManager(),bottomSheetFragment.getTag());
     }
 
     @Override

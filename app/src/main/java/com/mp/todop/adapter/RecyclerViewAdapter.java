@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.chip.Chip;
 import com.mp.todop.R;
+import com.mp.todop.util.Util;
 import com.mp.todop.model.Task;
 
 import java.util.List;
@@ -34,6 +35,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         Task task = taskList.get(position);
 
         holder.task.setText(task.getModel().getTask());
+        holder.todaychip.setText(Util.formatDate(task.getModel().getDueDate()));
+
     }
 
     @Override
@@ -50,7 +53,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             super(itemView);
             radioButton= itemView.findViewById(R.id.todo_radio_button);
             task=itemView.findViewById(R.id.todo_row_todo);
-            todaychip=itemView.findViewById(R.id.today_chip);
+            todaychip=itemView.findViewById(R.id.todo_row_chip);
 
         }
     }
