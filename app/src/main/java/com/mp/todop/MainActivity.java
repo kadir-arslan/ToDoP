@@ -1,6 +1,10 @@
 package com.mp.todop;
 
+import static android.content.ContentValues.TAG;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.mp.todop.adapter.OnTodoClickListener;
 import com.mp.todop.adapter.RecyclerViewAdapter;
 import com.mp.todop.model.Priority;
 import com.mp.todop.model.Task;
@@ -29,11 +34,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnTodoClickListener {
     private List<Task> taskList = new ArrayList<Task>();
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
-    BottomSheetFragment bottomSheetFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +45,6 @@ public class MainActivity extends AppCompatActivity {
         DatabaseHandler db = new DatabaseHandler();
         setContentView(R.layout.activity_main);
 
-        bottomSheetFragment = new BottomSheetFragment();
-        ConstraintLayout constraintLayout = findViewById(R.id.bottomSheet);
-        BottomSheetBehavior<ConstraintLayout> bottomSheetBehavior = BottomSheetBehavior.from(constraintLayout);
-        bottomSheetBehavior.setPeekHeight(BottomSheetBehavior.STATE_HIDDEN);
 
 
         recyclerView = findViewById(R.id.recycler_view);
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                     task.setModel(child.getValue(TaskModel.class));
                     taskList.add(task);
                 }
-                recyclerViewAdapter = new RecyclerViewAdapter(taskList);
+                recyclerViewAdapter = new RecyclerViewAdapter(taskList,MainActivity.this);
                 recyclerView.setAdapter(recyclerViewAdapter);
             }
 
@@ -89,10 +89,12 @@ public class MainActivity extends AppCompatActivity {
                 showBottomSheetDialog();
             }
         });
+
+
     }
 
     private void showBottomSheetDialog() {
-        bottomSheetFragment.show(getSupportFragmentManager(),bottomSheetFragment.getTag());
+        startActivity(new Intent(MainActivity.this, NewTaskActivity.class));
     }
 
     @Override
@@ -115,5 +117,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onTodoClick(int adapterPosition, Task task) {
+        Log.d(TAG, "onTodoClick: "+ adapterPosition + task.getModel().getTask());
     }
 }
