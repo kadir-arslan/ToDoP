@@ -1,6 +1,7 @@
 package com.mp.todop.util;
 
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -13,10 +14,13 @@ import java.util.List;
 
 public class DatabaseHandler {
     public DatabaseReference databaseReference;
+    FirebaseAuth mAuth;
 
     public DatabaseHandler() {
         FirebaseDatabase db = FirebaseDatabase.getInstance("https://todop-19db6-default-rtdb.europe-west1.firebasedatabase.app/");
-        databaseReference = db.getReference("tasks");
+        mAuth = FirebaseAuth.getInstance();
+        String Uid = mAuth.getCurrentUser().getUid();
+        databaseReference = db.getReference(Uid);
     }
 
     public List<Task> updateList(DataSnapshot dataSnapshot) {

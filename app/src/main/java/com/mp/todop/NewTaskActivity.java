@@ -3,6 +3,7 @@ package com.mp.todop;
 import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.Group;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.chip.Chip;
 import com.mp.todop.adapter.OnTodoClickListener;
 import com.mp.todop.model.Priority;
 import com.mp.todop.model.SharedViewModel;
@@ -36,12 +38,12 @@ public class NewTaskActivity extends AppCompatActivity{
     DatabaseHandler db = new DatabaseHandler();
     Calendar calendar = Calendar.getInstance();
     private EditText taskText;
-    private ImageButton calendarButton;
-    private ImageButton priorityButton;
+    private Chip calendarButton;
+    private Chip priorityButton;
     private RadioGroup priortyGrpoup;
     private RadioButton selectedRadioButton;
     private int seleectedBottunId;
-    private ImageButton saveButton;
+    private Chip saveButton;
     private CalendarView calendarView;
     private Group calendarGroup;
 
@@ -73,7 +75,7 @@ public class NewTaskActivity extends AppCompatActivity{
             priority = oldTask.getModel().getPriority();
             createDate = oldTask.getModel().getDateCreated();
             todo = oldTask.getModel().getTask();
-            saveButton.setImageResource(R.drawable.ic_baseline_edit_24);
+            saveButton.setChipIconResource(R.drawable.ic_baseline_edit_24);
             isEdit = true;
         }
 

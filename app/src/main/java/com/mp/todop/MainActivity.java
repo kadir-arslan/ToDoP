@@ -41,12 +41,12 @@ public class MainActivity extends AppCompatActivity implements OnTodoClickListen
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DatabaseHandler db = new DatabaseHandler();
         setContentView(R.layout.activity_main);
-
 
 
         recyclerView = findViewById(R.id.recycler_view);

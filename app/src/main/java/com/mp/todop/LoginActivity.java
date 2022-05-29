@@ -30,15 +30,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
+        mAuth = FirebaseAuth.getInstance();
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         google_signIn = findViewById(R.id.google_signIn);
         registerHere = findViewById(R.id.registerHere);
-
-
-
-        //admin and admin
 
         google_signIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,13 +48,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
             }
         });
-       /* register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(i);
-            }
-        });*/
+
     }
     private void loginUser(){
         String logEmail = username.getText().toString();
@@ -71,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
             password.setError("Password cannot be empty");
             password.requestFocus();
         }else{
+
             mAuth.signInWithEmailAndPassword(logEmail,logPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {

@@ -7,7 +7,7 @@
     android:background="@drawable/background"
     tools:context=".MainActivity">
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/registerRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,7 +21,7 @@
         android:text="REGISTER"
         android:textColor="#5E35B1" />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/loginRegisterPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
         android:text="Logın"
         android:textColor="#5E35B1" />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/girisRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
