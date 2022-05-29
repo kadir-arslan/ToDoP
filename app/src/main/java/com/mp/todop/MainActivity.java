@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.mp.todop.adapter.OnTodoClickListener;
 import com.mp.todop.adapter.RecyclerViewAdapter;
 import com.mp.todop.model.Priority;
+import com.mp.todop.model.SharedViewModel;
 import com.mp.todop.model.Task;
 import com.mp.todop.model.TaskModel;
 import com.mp.todop.util.DatabaseHandler;
@@ -75,27 +77,17 @@ public class MainActivity extends AppCompatActivity implements OnTodoClickListen
             }
         });
 
-
-
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Task task = new Task();
-                //java.util.Date date = new java.util.Date();
-                //task.setModel(new TaskModel("test", Priority.HIGH, date, date, false));
-                //db.add(task);
-                //db.remove(taskList.get(0));
-                showBottomSheetDialog();
+                startActivity(new Intent(MainActivity.this, NewTaskActivity.class));
             }
         });
 
 
     }
 
-    private void showBottomSheetDialog() {
-        startActivity(new Intent(MainActivity.this, NewTaskActivity.class));
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -120,6 +112,14 @@ public class MainActivity extends AppCompatActivity implements OnTodoClickListen
     }
     @Override
     public void onTodoClick(int adapterPosition, Task task) {
-        Log.d(TAG, "onTodoClick: "+ adapterPosition + task.getModel().getTask());
+        Intent i = new Intent(MainActivity.this, NewTaskActivity.class);
+        i.putExtra("task",task);
+        startActivity(i);
+    }
+
+    @Override
+    public void onTodoRadioButtonClick(Task task) {
+        //TODO neden calaismadigini bul
+        //recyclerViewAdapter.notifyDataSetChanged();
     }
 }

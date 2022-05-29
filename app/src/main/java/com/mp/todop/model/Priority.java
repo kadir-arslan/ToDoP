@@ -1,6 +1,8 @@
 package com.mp.todop.model;
 
-public enum Priority {
+import java.io.Serializable;
+
+public enum Priority  implements Serializable {
     HIGH,
     MEDIUM,
     LOW

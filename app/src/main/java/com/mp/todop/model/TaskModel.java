@@ -3,12 +3,13 @@ package com.mp.todop.model;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
 @IgnoreExtraProperties
-public class TaskModel {
+public class TaskModel implements Serializable {
 
     private String task;
     private Priority priority;

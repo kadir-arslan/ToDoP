@@ -4,4 +4,5 @@ import com.mp.todop.model.Task;
 
 public interface OnTodoClickListener {
     void onTodoClick(int adapterPosition, Task task);
+    void onTodoRadioButtonClick(Task task);
 }
