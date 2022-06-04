@@ -77,6 +77,7 @@ public class NewTaskActivity extends AppCompatActivity{
             createDate = oldTask.getModel().getDateCreated();
             todo = oldTask.getModel().getTask();
             saveButton.setChipIconResource(R.drawable.ic_baseline_edit_24);
+            saveButton.setText("Guncelle");
             isEdit = true;
         }
 

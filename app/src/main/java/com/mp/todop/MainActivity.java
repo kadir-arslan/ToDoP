@@ -1,5 +1,6 @@
 package com.mp.todop;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -116,9 +118,26 @@ public class MainActivity extends AppCompatActivity implements OnTodoClickListen
 
     @Override
     public void onTodoClick(int adapterPosition, Task task) {
-        Intent i = new Intent(MainActivity.this, NewTaskActivity.class);
-        i.putExtra("task", task);
-        startActivity(i);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("?");
+        builder.setPositiveButton("update", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent in = new Intent(MainActivity.this, NewTaskActivity.class);
+                in.putExtra("task", task);
+                startActivity(in);
+            }
+        });
+        builder.setNegativeButton("delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                db.remove(task);
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override
