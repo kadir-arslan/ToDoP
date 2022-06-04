@@ -21,11 +21,10 @@ import com.google.firebase.auth.FirebaseAuth;
 public class RegisterActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
-    Button girisRegister;
+    private Button girisRegister;
     private EditText email;
     private EditText password ;
     private Button regbtn;
-    private Button login;
     private EditText username;
 
     @Override
@@ -36,9 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         regbtn = findViewById(R.id.registerRegister);
-        login = findViewById(R.id.loginRegisterPage);
-        username = (EditText) findViewById(R.id.username);
-        girisRegister = (Button) findViewById(R.id.girisRegister) ;
+        girisRegister = findViewById(R.id.loginRegisterPage) ;
 
        regbtn.setOnClickListener(new View.OnClickListener() {
             @Override

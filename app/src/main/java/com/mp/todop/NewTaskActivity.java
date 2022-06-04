@@ -49,7 +49,7 @@ public class NewTaskActivity extends AppCompatActivity{
 
 
     private Date dueDate;
-    private Priority priority = Priority.MEDIUM;
+    private Priority priority;
     private String todo;
     private Date createDate;
     private Task oldTask;
@@ -67,6 +67,7 @@ public class NewTaskActivity extends AppCompatActivity{
         saveButton = findViewById(R.id.save_todo_button);
         priorityButton = findViewById(R.id.priority_todo_button);
         priortyGrpoup = findViewById(R.id.radioGroup_priority);
+        priority = Priority.MEDIUM;
 
         if (getIntent().getExtras() != null){
             oldTask = (Task) getIntent().getSerializableExtra("task");
@@ -85,6 +86,34 @@ public class NewTaskActivity extends AppCompatActivity{
                 calendarGroup.setVisibility(
                         calendarGroup.getVisibility() == View.GONE ? View.VISIBLE : View.GONE
                 );
+            }
+        });
+
+        priorityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                priortyGrpoup.setVisibility(
+                        priortyGrpoup.getVisibility() == View.GONE ? View.VISIBLE : View.GONE
+                );
+
+                priortyGrpoup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                        if (priortyGrpoup.getVisibility() == View.VISIBLE){
+                            seleectedBottunId = i;
+                            selectedRadioButton =radioGroup.findViewById(seleectedBottunId);
+                            if (selectedRadioButton.getId() == R.id.radioButton_high){
+                                priority = Priority.HIGH;
+                            }else if (selectedRadioButton.getId() == R.id.radioButton_med){
+                                priority = Priority.MEDIUM;
+                            }else if (selectedRadioButton.getId() == R.id.radioButton_low){
+                                 priority = Priority.LOW;
+                            }else {
+                                priority = Priority.MEDIUM;
+                            }
+                        }
+                    }
+                });
             }
         });
 

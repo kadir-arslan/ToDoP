@@ -19,7 +19,6 @@
         app:srcCompat="@android:drawable/ic_input_add"
         tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"

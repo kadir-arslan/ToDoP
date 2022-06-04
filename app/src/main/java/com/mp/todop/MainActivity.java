@@ -1,33 +1,24 @@
 package com.mp.todop;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.mp.todop.adapter.OnTodoClickListener;
 import com.mp.todop.adapter.RecyclerViewAdapter;
-import com.mp.todop.model.Priority;
-import com.mp.todop.model.SharedViewModel;
 import com.mp.todop.model.Task;
 import com.mp.todop.model.TaskModel;
 import com.mp.todop.util.DatabaseHandler;
@@ -40,12 +31,12 @@ public class MainActivity extends AppCompatActivity implements OnTodoClickListen
     private List<Task> taskList = new ArrayList<Task>();
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
-
+    private DatabaseHandler db = new DatabaseHandler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DatabaseHandler db = new DatabaseHandler();
+
         setContentView(R.layout.activity_main);
 
 
@@ -67,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements OnTodoClickListen
                     task.setModel(child.getValue(TaskModel.class));
                     taskList.add(task);
                 }
-                recyclerViewAdapter = new RecyclerViewAdapter(taskList,MainActivity.this);
+                recyclerViewAdapter = new RecyclerViewAdapter(taskList, MainActivity.this);
                 recyclerView.setAdapter(recyclerViewAdapter);
             }
 
@@ -88,19 +79,31 @@ public class MainActivity extends AppCompatActivity implements OnTodoClickListen
 
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        MenuItem menuItem = (MenuItem) menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                recyclerViewAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -110,16 +113,21 @@ public class MainActivity extends AppCompatActivity implements OnTodoClickListen
 
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onTodoClick(int adapterPosition, Task task) {
         Intent i = new Intent(MainActivity.this, NewTaskActivity.class);
-        i.putExtra("task",task);
+        i.putExtra("task", task);
         startActivity(i);
     }
 
     @Override
     public void onTodoRadioButtonClick(Task task) {
-        //TODO neden calaismadigini bul
-        //recyclerViewAdapter.notifyDataSetChanged();
+        if (task.getModel().isDone()) {
+            task.getModel().setDone(false);
+        } else {
+            task.getModel().setDone(true);
+        }
+        db.update(task);
     }
 }
