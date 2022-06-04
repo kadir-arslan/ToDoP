@@ -19,7 +19,7 @@ public class Util {
             if (priority == Priority.LOW) {
                 return "Low";
             }else if(priority == Priority.HIGH) {
-                return "Hidh";
+                return "High";
             }else if (priority == Priority.MEDIUM) {
                 return "Medium";
             }

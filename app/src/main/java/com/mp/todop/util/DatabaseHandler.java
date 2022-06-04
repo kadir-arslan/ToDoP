@@ -23,6 +23,9 @@ public class DatabaseHandler {
         databaseReference = db.getReference(Uid);
     }
 
+    public void singOut(){
+        mAuth.signOut();
+    }
     public List<Task> updateList(DataSnapshot dataSnapshot) {
         List<Task> list = new ArrayList<Task>();
         Iterator<DataSnapshot> childIter = dataSnapshot.getChildren().iterator();

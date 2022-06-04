@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -110,7 +111,10 @@ public class MainActivity extends AppCompatActivity implements OnTodoClickListen
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            startActivity(new Intent(MainActivity.this, AboutActivity.class));
+        }else if (id == R.id.logout) {
+            db.singOut();
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
         }
 
         return super.onOptionsItemSelected(item);

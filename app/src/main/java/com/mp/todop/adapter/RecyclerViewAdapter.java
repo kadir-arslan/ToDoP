@@ -123,15 +123,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public void onClick(View view) {
             int id = view.getId();
             Task currTask = taskList.get(getAdapterPosition());
-            Log.d(TAG, "onClick: metod");
 
             if (id == R.id.todo_row_layout){
                 ontodoClickListener.onTodoClick(getAdapterPosition(),currTask);
-                Log.d(TAG, "onClick: lyou");
 
             }else if(id == R.id.todo_radio_button){
                 ontodoClickListener.onTodoRadioButtonClick(currTask);
-                Log.d(TAG, "onClick: radio ");
             }
         }
     }

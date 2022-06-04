@@ -24,12 +24,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
-        android:text="priorty"
+        android:text="Öncelik"
         android:background="@android:color/transparent"
         app:layout_constraintStart_toEndOf="@+id/today_calendar_button"
         app:layout_constraintTop_toBottomOf="@+id/enter_todo_et"
-        app:chipIcon="@drawable/ic_baseline_outlined_flag_24"
-        android:contentDescription="@string/image_description" />
+        app:chipIcon="@drawable/ic_baseline_outlined_flag_24" />
 
     <com.google.android.material.chip.Chip
         android:id="@+id/save_todo_button"
@@ -51,7 +50,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="Bitis Gunu"
-        android:contentDescription="@string/image_description"
         android:layout_marginTop="16dp"
         android:background="@android:color/transparent"
         app:layout_constraintStart_toStartOf="parent"
